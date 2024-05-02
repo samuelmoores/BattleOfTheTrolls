@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\VisualStudioProject\Game\x64\Debug\Game.exe</FullPath>
+      <FullPath>C:\VisualStudioProject\BattleOfTheTrolls\x64\Debug\Game.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

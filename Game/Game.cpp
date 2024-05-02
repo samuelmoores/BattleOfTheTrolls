@@ -5,45 +5,98 @@ int playerArmor = 5;
 int playerHealth = 10;
 int playerInput = 0;
 int trollHealth = 5;
-int trollStamina = 3;
+int trollStamina = 5;
+
+class Player {
+
+	int playerHealth;
+	int playerArmor;
+
+public:
+
+	//set the health and stamina
+	Player()
+	{
+		playerHealth = 10;
+		playerArmor = 5;
+	}
+
+	int getArmor()
+	{
+		std::cout << "player armor: " << playerArmor << "\n";
+		return playerArmor;
+	}
+
+	int getHealth()
+	{
+		return playerHealth;
+	}
+};
+
+class Troll {
+	int stamina = 5;
+	int health = 10;
+
+public:
+	//constructor
+	Troll() {
+		stamina = 5;
+		health = 10;
+	}
+	int getHealth() {
+		return health;
+	}
+
+	int getStamina() {
+		return stamina;
+	}
+};
+
 
 //when player attacks, take away some of the troll stamina and health
-void Attack(int* trollHealth, int* trollStamina)
+void Attack(Troll* troll)
 {
-	if ((*trollStamina) > 0)
+	if (troll->getStamina() > 0)
 	{
-		(*trollStamina)--;
+		trollStamina--;
 	}
 
-	if ((*trollHealth) > 2)
+	if (troll->getHealth() > 2)
 	{
-		(*trollHealth) -= 2;
+		trollHealth -= 2;
 	}
 	
-	if ((*trollHealth) == 1)
+	if (troll->getHealth() == 1)
 	{
-		(*trollHealth)--;
+		trollHealth--;
 	}
 
 }
 
 //when player defends take away some of the troll stamina and a little bit of player health
-int Defend()
+int Defend(int& trollStamina)
 {
+	//take away stamina
+	trollStamina -= 3;
+
+	//clamp the value at 0 
+	if (trollStamina < 0)
+	{
+		trollStamina = 0;
+	}
+
 	return 0;
 }
 
 int main()
 {
-	//create some pointers to the troll health and stamina
-	int* trollHealth_ptr = &trollHealth;
-	int* trollStamina_ptr = &trollStamina;
-
+	Player player;
+	Troll troll;
 
 	while (play)
 	{
 		std::cout << "\n--------------- Player -------------------------\n";
-		std::cout << "[armor] " << playerArmor << "\n";
+		player.getArmor();
 		std::cout << "[health] " << playerHealth << "\n";
 		std::cout << "--------------- Troll -------------------------\n";
 		std::cout << "[stamina] " << trollStamina << "\n";
@@ -55,10 +108,10 @@ int main()
 		switch (playerInput)
 		{
 		case 1:
-			Attack(trollHealth_ptr, trollStamina_ptr);
+			Attack(troll);
 			break;
 		case 2:
-			Defend();
+			Defend(trollStamina);
 			break;
 		default:
 			"Oops you did nothing, the troll attacked you!\n";
